@@ -6,19 +6,22 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const result = {};
+  const parsedStyles = {};
 
   sourceString
     .split(';')
     .map((line) => line.trim())
     .filter((line) => line.includes(':'))
     .forEach((line) => {
-      const [key, value] = line.split(':');
+      const idx = line.indexOf(':');
 
-      result[key.trim()] = value.trim();
+      const key = line.slice(0, idx).trim();
+      const value = line.slice(idx + 1).trim();
+
+      parsedStyles[key.trim()] = value.trim();
     });
 
-  return result;
+  return parsedStyles;
 }
 
 module.exports = convertToObject;
